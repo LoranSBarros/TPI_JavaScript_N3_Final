@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajuda</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function enviarSolicitacao(event) {
+            event.preventDefault(); //
+            const email = document.getElementById("email").value;
+            alert(`Solicitação enviada com sucesso. As demais instruções chegarão pelo email forncedio assim que possível.`);
+            document.getElementById("formAjuda").reset(); 
+        }
+
+        function mascaraTelefone(input) {
+            let telefone = input.value.replace(/\D/g, ""); 
+            telefone = telefone.replace(/(\d{2})(\d)/, "($1) $2");
+            telefone = telefone.replace(/(\d{1})(\d{4})(\d{4})$/, "$1 $2-$3");
+            input.value = telefone;
+        }
+    </script>
+</head>
+<body>
+    <nav style="background-color: #0337e4; color: #fff; padding: 10px; text-align: center;">
+        <a href="loja_de_instrumentos.html" style="color: #fff; text-decoration: none; font-size: 18px;">Início</a>
+    </nav>
+
+    <main style="padding: 20px; font-family: Arial, sans-serif;">
+        <h1>Fale conosco</h1>
+        <form id="formAjuda" onsubmit="enviarSolicitacao(event)">
+            <label for="nomeCliente">Nome do Cliente:</label>
+            <input type="text" id="nomeCliente" required style="width: 100%; padding: 8px; margin: 10px 0;"><br>
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" required style="width: 100%; padding: 8px; margin: 10px 0;"><br>
+
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone" placeholder="(00) 0 0000-0000" maxlength="15" oninput="mascaraTelefone(this)" required style="width: 100%; padding: 8px; margin: 10px 0;"><br>
+
+            <label for="problema">Descritivo do problema:</label>
+            <textarea id="problema" rows="5" required style="width: 100%; padding: 8px; margin: 10px 0;"></textarea><br>
+
+            <button type="submit" style="background-color: #010264; color: #fff; padding: 10px 20px; border: none; cursor: pointer;">Enviar Solicitação</button>
+        </form>
+    </main>
+</body>
+</html>

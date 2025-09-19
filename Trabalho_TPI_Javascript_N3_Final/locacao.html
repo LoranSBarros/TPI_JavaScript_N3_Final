@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Agendamento de Locação</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function mascaraTelefone(input) {
+            let telefone = input.value.replace(/\D/g, ""); 
+            telefone = telefone.replace(/(\d{2})(\d)/, "($1) $2");
+            telefone = telefone.replace(/(\d{1})(\d{4})(\d{4})$/, "$1 $2-$3");
+            input.value = telefone;
+        }
+
+        function finalizarAgendamento(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById("nomeCliente").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const telefone = document.getElementById("telefone").value.trim();
+            const quantidade = document.getElementById("quantidade").value.trim();
+            const dataLocacao = document.getElementById("data").value.trim();
+            const dataDevolucao = document.getElementById("dataDevolucao").value.trim();
+            const horarioRetirada = document.getElementById("horario").value.trim();
+            const horarioDevolucao = document.getElementById("horarioDevolucao").value.trim();
+
+            if (nome.split(" ").length < 2) {
+                alert("O nome do cliente deve conter pelo menos duas palavras.");
+                return false;
+            }
+
+            if (!email.includes("@") || !email.includes(".com")) {
+                alert("Por favor, insira um e-mail válido.");
+                return false;
+            }
+
+            if (!/^\(\d{2}\) \d \d{4}-\d{4}$/.test(telefone)) {
+                alert("Telefone inválido. Use o formato (00) 0 0000-0000.");
+                return false;
+            }
+
+            if (quantidade <= 0) {
+                alert("A quantidade de instrumentos deve ser maior que 0.");
+                return false;
+            }
+
+            if (!dataLocacao || !dataDevolucao || !horarioRetirada || !horarioDevolucao) {
+                alert("Todos os campos de data e horário devem ser preenchidos.");
+                return false;
+            }
+
+            alert("Solicitação de locação feito com sucesso. Nossa equipe entrará em contato em breve com mais informações e os cálculos do orçamento. ");
+
+            document.getElementById("formAgendamento").reset();
+        }
+    </script>
+</head>
+<body>
+    <nav style="background-color: #0337e4; color: #fff; padding: 10px; text-align: center;">
+        <a href="loja_de_instrumentos.html" style="color: #fff; text-decoration: none; font-size: 18px;">Início</a>
+    </nav>
+
+    <main style="padding: 20px; font-family: Arial, sans-serif;">
+        <h1>Agendamento de Locação</h1>
+        <form id="formAgendamento" onsubmit="finalizarAgendamento(event)">
+            <label for="nomeCliente">Nome do Cliente:</label>
+            <input type="text" id="nomeCliente" required style="width: 100%; padding: 8px; margin: 10px 0;"><br>
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" required style="width: 100%; padding: 8px; margin: 10px 0;"><br>
+
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone" placeholder="(00) 0 0000-0000" maxlength="15" oninput="mascaraTelefone(this)" required style="width: 100%; padding: 8px; margin: 10px 0;"><br>
+
+            <label for="instrumento">Instrumento Desejado:</label>
+            <input type="text" id="instrumento" required style="width: 100%; padding: 8px; margin: 10px 0;"><br>
+
+            <label for="quantidade">Quantidade:</label>
+            <input type="number" id="quantidade" required style="width: 100%; padding: 8px; margin: 10px 0;"><br>
+
+            <label for="data">Data de Locação:</label>
+            <input type="date" id="data" required style="width: 100%; padding: 8px; margin: 10px 0;"><br>
+
+            <label for="dataDevolucao">Data de Devolução:</label>
+            <input type="date" id="dataDevolucao" required style="width: 100%; padding: 8px; margin: 10px 0;"><br>
+
+            <label for="horario">Horário de Retirada:</label>
+            <input type="time" id="horario" required style="width: 100%; padding: 8px; margin: 10px 0;"><br>
+
+            <label for="horarioDevolucao">Horário de Devolução:</label>
+            <input type="time" id="horarioDevolucao" required style="width: 100%; padding: 8px; margin: 10px 0;"><br>
+
+            <button type="submit" style="background-color: #010264; color: #fff; padding: 10px 20px; border: none; cursor: pointer;">Agendar Locação</button>
+        </form>
+    </main>
+</body>
+</html>
